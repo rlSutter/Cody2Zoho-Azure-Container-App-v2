@@ -1,0 +1,11 @@
+﻿// API Performance
+dependencies
+| where timestamp >= ago(24h)
+| where type == "Http"
+| summarize 
+    RequestCount = count(),
+    AvgDuration = avg(duration),
+    MaxDuration = max(duration),
+    SuccessRate = 100.0 * countif(success == true) / count()
+    by target, bin(timestamp, 1h)
+| order by AvgDuration desc

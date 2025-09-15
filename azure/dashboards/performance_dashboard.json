@@ -1,0 +1,122 @@
+﻿{
+    "type":  "Microsoft.OperationsManagement/solutions",
+    "name":  "Cody2Zoho Performance Monitoring",
+    "lenses":  {
+                   "0":  {
+                             "order":  0,
+                             "parts":  {
+                                           "2":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "exceptions | where timestamp \u003e= ago(24h) | summarize ErrorCount = count() by type, bin(timestamp, 1h) | order by ErrorCount desc",
+                                                                                                       "PartTitle":  "Error Analysis (Last 24h)",
+                                                                                                       "PartSubTitle":  "Errors by type and frequency"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  4,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  0
+                                                                  }
+                                                 },
+                                           "3":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "performanceCounters | where timestamp \u003e= ago(24h) | where name == \u0027\\\\Process(_Total)\\\\Private Bytes\u0027 | summarize MemoryUsage = avg(value) by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Memory Usage (Last 24h)",
+                                                                                                       "PartSubTitle":  "Application memory consumption"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  4,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  6
+                                                                  }
+                                                 },
+                                           "1":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "dependencies | where timestamp \u003e= ago(24h) | where type == \u0027Http\u0027 | summarize AvgDuration = avg(duration), MaxDuration = max(duration) by target, bin(timestamp, 1h) | order by AvgDuration desc",
+                                                                                                       "PartTitle":  "API Response Times (Last 24h)",
+                                                                                                       "PartSubTitle":  "Average and maximum response times"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  0,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  6
+                                                                  }
+                                                 },
+                                           "0":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "requests | where timestamp \u003e= ago(24h) | summarize RequestCount = count(), SuccessRate = 100.0 * countif(success == true) / count() by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Request Success Rate (Last 24h)",
+                                                                                                       "PartSubTitle":  "Percentage of successful requests"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  0,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  0
+                                                                  }
+                                                 }
+                                       }
+                         }
+               },
+    "metadata":  {
+                     "model":  {
+                                   "timeRange":  {
+                                                     "value":  {
+                                                                   "relative":  {
+                                                                                    "duration":  86400000
+                                                                                }
+                                                               },
+                                                     "type":  "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+                                                 },
+                                   "filterLocale":  {
+                                                        "value":  "en-us"
+                                                    },
+                                   "filters":  {
+                                                   "value":  {
+                                                                 "MsPortalFx_TimeRange":  {
+                                                                                              "displayCache":  {
+                                                                                                                   "value":  "Past 24 hours",
+                                                                                                                   "name":  "UTC Time"
+                                                                                                               },
+                                                                                              "filteredPartIds":  {
+                                                                                                                      "2":  "2",
+                                                                                                                      "3":  "3",
+                                                                                                                      "1":  "1",
+                                                                                                                      "0":  "0"
+                                                                                                                  },
+                                                                                              "model":  {
+                                                                                                            "value":  {
+                                                                                                                          "relative":  {
+                                                                                                                                           "duration":  86400000
+                                                                                                                                       }
+                                                                                                                      },
+                                                                                                            "format":  "utc"
+                                                                                                        }
+                                                                                          }
+                                                             }
+                                               }
+                               }
+                 }
+}

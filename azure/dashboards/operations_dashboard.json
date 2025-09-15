@@ -1,0 +1,122 @@
+﻿{
+    "type":  "Microsoft.OperationsManagement/solutions",
+    "name":  "Cody2Zoho Operations Monitoring",
+    "lenses":  {
+                   "0":  {
+                             "order":  0,
+                             "parts":  {
+                                           "2":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027token_refresh\u0027 | summarize RefreshCount = count(), SuccessRate = 100.0 * countif(customDimensions.success == \u0027true\u0027) / count() by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Token Refresh (Last 24h)",
+                                                                                                       "PartSubTitle":  "Token refresh attempts and success rate"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  4,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  0
+                                                                  }
+                                                 },
+                                           "3":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027api_call\u0027 | summarize ApiCalls = count(), AvgDuration = avg(customDimensions.duration_seconds) by customDimensions.api_name, bin(timestamp, 1h) | order by ApiCalls desc",
+                                                                                                       "PartTitle":  "API Calls (Last 24h)",
+                                                                                                       "PartSubTitle":  "Number of API calls and average duration"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  4,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  6
+                                                                  }
+                                                 },
+                                           "1":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027rate_limit_hit\u0027 | summarize RateLimitHits = count() by customDimensions.api_name, bin(timestamp, 1h) | order by RateLimitHits desc",
+                                                                                                       "PartTitle":  "Rate Limit Hits (Last 24h)",
+                                                                                                       "PartSubTitle":  "API rate limit violations"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  0,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  6
+                                                                  }
+                                                 },
+                                           "0":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027polling_cycle_completed\u0027 | summarize Cycles = count(), AvgDuration = avg(customDimensions.cycle_duration_seconds) by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Polling Cycles (Last 24h)",
+                                                                                                       "PartSubTitle":  "Number of polling cycles and average duration"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  0,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  0
+                                                                  }
+                                                 }
+                                       }
+                         }
+               },
+    "metadata":  {
+                     "model":  {
+                                   "timeRange":  {
+                                                     "value":  {
+                                                                   "relative":  {
+                                                                                    "duration":  86400000
+                                                                                }
+                                                               },
+                                                     "type":  "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+                                                 },
+                                   "filterLocale":  {
+                                                        "value":  "en-us"
+                                                    },
+                                   "filters":  {
+                                                   "value":  {
+                                                                 "MsPortalFx_TimeRange":  {
+                                                                                              "displayCache":  {
+                                                                                                                   "value":  "Past 24 hours",
+                                                                                                                   "name":  "UTC Time"
+                                                                                                               },
+                                                                                              "filteredPartIds":  {
+                                                                                                                      "2":  "2",
+                                                                                                                      "3":  "3",
+                                                                                                                      "1":  "1",
+                                                                                                                      "0":  "0"
+                                                                                                                  },
+                                                                                              "model":  {
+                                                                                                            "value":  {
+                                                                                                                          "relative":  {
+                                                                                                                                           "duration":  86400000
+                                                                                                                                       }
+                                                                                                                      },
+                                                                                                            "format":  "utc"
+                                                                                                        }
+                                                                                          }
+                                                             }
+                                               }
+                               }
+                 }
+}

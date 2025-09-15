@@ -1,0 +1,12 @@
+﻿// Business Metrics Dashboard
+customEvents
+| where timestamp >= ago(7d)
+| where customDimensions.eventName in ("case_created", "conversation_processed", "polling_cycle_completed")
+| summarize 
+    CasesCreated = countif(customDimensions.eventName == "case_created"),
+    ConversationsProcessed = countif(customDimensions.eventName == "conversation_processed"),
+    PollingCycles = countif(customDimensions.eventName == "polling_cycle_completed"),
+    AvgProcessingTime = avgif(customDimensions.processing_time_seconds, customDimensions.eventName == "conversation_processed"),
+    AvgMessageCount = avgif(customDimensions.message_count, customDimensions.eventName == "case_created")
+    by bin(timestamp, 1d)
+| order by timestamp desc

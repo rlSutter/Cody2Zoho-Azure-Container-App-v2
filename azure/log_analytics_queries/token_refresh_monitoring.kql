@@ -1,0 +1,10 @@
+﻿// Token Refresh Monitoring
+customEvents
+| where timestamp >= ago(24h)
+| where customDimensions.eventName == "token_refresh"
+| summarize 
+    RefreshCount = count(),
+    SuccessRate = 100.0 * countif(customDimensions.success == "true") / count(),
+    AvgDuration = avgif(customDimensions.duration_seconds, customDimensions.duration_seconds > 0)
+    by bin(timestamp, 1h)
+| order by timestamp desc

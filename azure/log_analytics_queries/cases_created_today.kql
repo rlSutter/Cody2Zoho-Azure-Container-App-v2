@@ -1,0 +1,11 @@
+﻿// Cases Created Today
+customEvents
+| where timestamp >= startofday(now())
+| where customDimensions.eventName == "case_created"
+| summarize 
+    CasesCreated = count(),
+    Conversations = dcount(customDimensions.conversation_id),
+    AvgMessageCount = avg(customDimensions.message_count),
+    AvgCharacterCount = avg(customDimensions.character_count)
+    by bin(timestamp, 1h)
+| order by timestamp desc

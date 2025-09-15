@@ -1,0 +1,9 @@
+﻿// Error Analysis
+exceptions
+| where timestamp >= ago(24h)
+| summarize 
+    ErrorCount = count(),
+    ErrorTypes = dcount(type),
+    AffectedConversations = dcount(customDimensions.conversation_id)
+    by type, bin(timestamp, 1h)
+| order by ErrorCount desc

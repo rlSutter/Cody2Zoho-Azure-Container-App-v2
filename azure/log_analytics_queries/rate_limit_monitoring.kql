@@ -1,0 +1,9 @@
+﻿// Rate Limit Monitoring
+customEvents
+| where timestamp >= ago(24h)
+| where customDimensions.eventName == "rate_limit_hit"
+| summarize 
+    RateLimitHits = count(),
+    APIs = dcount(customDimensions.api_name)
+    by customDimensions.api_name, bin(timestamp, 1h)
+| order by RateLimitHits desc

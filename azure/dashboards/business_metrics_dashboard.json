@@ -1,0 +1,132 @@
+﻿{
+    "type":  "Microsoft.OperationsManagement/solutions",
+    "name":  "Cody2Zoho Business Metrics",
+    "lenses":  {
+                   "0":  {
+                             "order":  0,
+                             "parts":  {
+                                           "2":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027conversation_processed\u0027 | summarize AvgProcessingTime = avg(customDimensions.processing_time_seconds) by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Average Processing Time (Last 24h)",
+                                                                                                       "PartSubTitle":  "Average time to process conversations"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  4,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  0
+                                                                  }
+                                                 },
+                                           "3":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027case_created\u0027 | summarize AvgMessageCount = avg(customDimensions.message_count), AvgCharacterCount = avg(customDimensions.character_count) by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Conversation Statistics (Last 24h)",
+                                                                                                       "PartSubTitle":  "Average message count and character count"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  4,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  6
+                                                                  }
+                                                 },
+                                           "1":  {
+                                                     "metadata":  {
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027conversation_processed\u0027 | summarize ConversationsProcessed = count() by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Conversations Processed (Last 24h)",
+                                                                                                       "PartSubTitle":  "Number of conversations processed per hour"
+                                                                                                   }
+                                                                                   },
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart"
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  0,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  6
+                                                                  }
+                                                 },
+                                           "0":  {
+                                                     "metadata":  {
+                                                                      "inputs":  [
+                                                                                     {
+                                                                                         "isOptional":  true,
+                                                                                         "name":  "timespan"
+                                                                                     },
+                                                                                     {
+                                                                                         "isOptional":  true,
+                                                                                         "name":  "queryId"
+                                                                                     }
+                                                                                 ],
+                                                                      "type":  "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+                                                                      "settings":  {
+                                                                                       "content":  {
+                                                                                                       "Query":  "customEvents | where timestamp \u003e= ago(24h) | where customDimensions.eventName == \u0027case_created\u0027 | summarize CasesCreated = count() by bin(timestamp, 1h) | order by timestamp desc",
+                                                                                                       "PartTitle":  "Cases Created (Last 24h)",
+                                                                                                       "PartSubTitle":  "Number of cases created per hour"
+                                                                                                   }
+                                                                                   }
+                                                                  },
+                                                     "position":  {
+                                                                      "y":  0,
+                                                                      "rowSpan":  4,
+                                                                      "colSpan":  6,
+                                                                      "x":  0
+                                                                  }
+                                                 }
+                                       }
+                         }
+               },
+    "metadata":  {
+                     "model":  {
+                                   "timeRange":  {
+                                                     "value":  {
+                                                                   "relative":  {
+                                                                                    "duration":  86400000
+                                                                                }
+                                                               },
+                                                     "type":  "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+                                                 },
+                                   "filterLocale":  {
+                                                        "value":  "en-us"
+                                                    },
+                                   "filters":  {
+                                                   "value":  {
+                                                                 "MsPortalFx_TimeRange":  {
+                                                                                              "displayCache":  {
+                                                                                                                   "value":  "Past 24 hours",
+                                                                                                                   "name":  "UTC Time"
+                                                                                                               },
+                                                                                              "filteredPartIds":  {
+                                                                                                                      "2":  "2",
+                                                                                                                      "3":  "3",
+                                                                                                                      "1":  "1",
+                                                                                                                      "0":  "0"
+                                                                                                                  },
+                                                                                              "model":  {
+                                                                                                            "value":  {
+                                                                                                                          "relative":  {
+                                                                                                                                           "duration":  86400000
+                                                                                                                                       }
+                                                                                                                      },
+                                                                                                            "format":  "utc"
+                                                                                                        }
+                                                                                          }
+                                                             }
+                                               }
+                               }
+                 }
+}

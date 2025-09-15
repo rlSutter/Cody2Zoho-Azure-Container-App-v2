@@ -1,0 +1,13 @@
+﻿// Conversation Processing Details
+customEvents
+| where timestamp >= ago(24h)
+| where customDimensions.eventName == "conversation_processed"
+| project 
+    timestamp,
+    conversation_id = customDimensions.conversation_id,
+    processing_time = customDimensions.processing_time_seconds,
+    success = customDimensions.success,
+    case_created = customDimensions.case_created,
+    message_count = customDimensions.message_count,
+    character_count = customDimensions.character_count
+| order by timestamp desc

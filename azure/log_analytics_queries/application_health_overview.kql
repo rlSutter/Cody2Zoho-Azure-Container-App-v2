@@ -1,0 +1,10 @@
+﻿// Application Health Overview
+requests
+| where timestamp >= ago(24h)
+| summarize 
+    RequestCount = count(),
+    SuccessRate = 100.0 * countif(success == true) / count(),
+    AvgResponseTime = avg(duration),
+    ErrorCount = countif(success == false)
+    by bin(timestamp, 1h)
+| order by timestamp desc
