@@ -1,0 +1,10 @@
+flask>=2.0.0,<3.0.0
+requests==2.32.3
+redis==5.0.7
+tenacity==9.0.0
+python-dotenv==1.0.1
+graypy==2.1.0
+pydantic-settings==2.1.0
+opencensus-ext-azure==1.1.8
+opencensus-ext-flask>=0.8.0
+opencensus-ext-logging==0.1.0

@@ -1,0 +1,119 @@
+services:
+  # Your existing application
+  app:
+    build: .
+    container_name: cody2zoho-app
+    env_file: .env
+    ports:
+      - "${PORT:-8080}:8080"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+      - graylog-network
+    environment:
+      # Redis configuration
+      - REDIS_URL=redis://redis:6379/0
+      # Graylog configuration
+      - GRAYLOG_HOST=graylog
+      - GRAYLOG_PORT=12201
+      - GRAYLOG_PROTOCOL=udp
+      - ENABLE_GRAYLOG=true
+    restart: unless-stopped
+
+  # Your existing Redis
+  redis:
+    image: redis:7-alpine
+    container_name: cody2zoho-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # MongoDB for Graylog
+  mongodb:
+    image: mongo:6
+    container_name: graylog-mongodb
+    restart: unless-stopped
+    command: mongod --logpath /dev/null
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - graylog-network
+
+  # Elasticsearch for Graylog
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    container_name: graylog-elasticsearch
+    restart: unless-stopped
+    command: "bin/elasticsearch -E cluster.name='graylog' -E http.host='0.0.0.0' -E transport.host='localhost' -E network.host='0.0.0.0' -E 'discovery.type=single-node' -E 'discovery.zen.minimum_master_nodes=1' -E 'cluster.routing.allocation.disk.threshold_enabled=false' -E bootstrap.memory_lock=true"
+    environment:
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-methods=OPTIONS,HEAD,GET,POST,PUT,DELETE
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - http.cors.allow-credentials=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - graylog-network
+
+  # Graylog
+  graylog:
+    image: graylog/graylog:5.2
+    container_name: graylog
+    restart: unless-stopped
+    # command: "graylog server"  # Let it use the default command
+    environment:
+      # CHANGE ME (must be at least 16 characters)!
+      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
+      # Password: admin
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_HTTP_EXTERNAL_URI=${GRAYLOG_EXTERNAL_URI:-http://127.0.0.1:9000/}
+      - GRAYLOG_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - GRAYLOG_MONGODB_URI=mongodb://mongodb:27017/graylog
+      - GRAYLOG_SERVER_JAVA_OPTS=-Xms512m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=50
+    volumes:
+      - graylog_data:/usr/share/graylog/data
+    ports:
+      # Graylog web interface and REST API
+      - "9000:9000"
+      # GELF UDP
+      - "12201:12201/udp"
+      # GELF TCP
+      - "12201:12201"
+      # GELF HTTP
+      - "12202:12202"
+    depends_on:
+      - mongodb
+      - elasticsearch
+    networks:
+      - graylog-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/api/system/lbstatus"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  app-network:
+    driver: bridge
+  graylog-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
+  mongodb_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+  graylog_data:
+    driver: local

@@ -1,0 +1,42 @@
+﻿env:
+  - name: CODY_API_KEY
+    value: ""
+  - name: ZOHO_CONTACT_ID
+    value: ""
+  - name: ZOHO_ACCOUNTS_BASE_URL
+    value: "https://accounts.zoho.com"
+  - name: REDIS_URL
+    value: ""
+  - name: CODY_API_URL
+    value: "https://getcody.ai/api/v1"
+  - name: CODY_BOT_ID
+    value: ""
+  - name: ZOHO_API_BASE_URL
+    value: "https://www.zohoapis.com"
+  - name: ZOHO_ACCESS_TOKEN
+    value: ""
+  - name: ZOHO_CASE_STATUS
+    value: "Closed"
+  - name: POLL_INTERVAL_SECONDS
+    value: "30"
+  - name: ZOHO_ENABLE_DUPLICATE_CHECK
+    value: "true"
+  - name: ENABLE_GRAYLOG
+    value: "false"
+  - name: ZOHO_CASE_ORIGIN
+    value: "Web"
+  - name: ZOHO_CONTACT_NAME
+    value: "Cody Chat"
+  - name: ZOHO_ATTACH_TRANSCRIPT_AS_NOTE
+    value: "false"
+  - name: ZOHO_REFRESH_TOKEN
+    value: ""
+  - name: ZOHO_CLIENT_ID
+    value: ""
+  - name: ZOHO_API_VERSION
+    value: "v8"
+  - name: ZOHO_CLIENT_SECRET
+    value: ""
+  - name: PORT
+    value: "8080"
+
