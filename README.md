@@ -181,8 +181,6 @@ Cody2Zoho/
 ├── 🐳 Dockerfile                    # Multi-stage application container
 ├── 📄 requirements.txt              # Python dependencies
 ├── 📄 env.template                  # Environment configuration template
-├── 📄 env-vars.yaml                 # Azure Container App environment variables
-├── 📄 azure-deployment-info.json    # Azure deployment information
 ├── 📄 .env                          # Environment configuration (create from template)
 ├── 📄 .gitignore                    # Git ignore patterns
 ├── 📄 LICENSE                       # MIT License
