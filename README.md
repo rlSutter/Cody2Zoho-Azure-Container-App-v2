@@ -130,63 +130,6 @@ Cody2Zoho/
 │   ├── 🐍 app_insights_handler.py   # Azure Application Insights telemetry
 │   └── 🐍 token_cli.py              # Command-line token management tool
 │
-├── 📁 tests/                        # Testing and debugging scripts
-│   ├── 🧪 test_zoho_oauth_enhanced.py    # Comprehensive OAuth testing
-│   ├── 🧪 test_auto_refresh.py           # Automatic token refresh testing
-│   ├── 🧪 test_token_management.py       # Token management testing
-│   ├── 🧪 generate_tokens.py             # Token generation utility
-│   ├── 🧪 generate_new_tokens.py         # Enhanced token generation
-│   ├── 🧪 test_store_init.py             # Redis store initialization testing
-│   ├── 🧪 test_redis.py                  # Redis connection testing
-│   ├── 🧪 debug_main.py                  # Main function execution testing
-│   ├── 🧪 test_main_simple.py            # Simple main function testing
-│   ├── 🧪 test_logging.py                # Logging handler testing
-│   ├── 🧪 debug_zoho_api.py              # Zoho API debugging
-│   ├── 🧪 test_zoho_refresh.py           # Zoho refresh token testing
-│   ├── 🧪 test_full_app.py               # Full application testing
-│   ├── 🧪 test_duplicate_checking.py     # Duplicate checking testing
-│   ├── 🧪 test_app_insights_integration.py # Application Insights testing
-│   ├── 🧪 test_graylog_integration.py    # Graylog integration testing
-│   ├── 🧪 test_cody_client.py            # Cody client testing
-│   ├── 🧪 test_zoho_client.py            # Zoho client testing
-│   ├── 🧪 test_zoho_client_simple.py     # Simple Zoho client testing
-│   ├── 🧪 test_zoho_client_retry.py      # Zoho client retry testing
-│   ├── 🧪 test_zoho_case_search.py       # Zoho case search testing
-│   ├── 🧪 test_zoho_oauth.py             # Basic Zoho OAuth testing
-│   ├── 🧪 oauth_callback_server.py       # OAuth callback server
-│   ├── 🧪 test_full_integration.py       # Full integration testing
-│   ├── 🧪 test_app_startup.py            # Application startup testing
-│   ├── 🧪 test_components.py             # Component testing
-│   ├── 🧪 test_settings.py               # Settings testing
-│   ├── 🧪 test_import.py                 # Import testing
-│   ├── 🧪 test_smoke.py                  # Smoke testing
-│   ├── 🧪 test_minimal_main.py           # Minimal main testing
-│   ├── 🧪 test_standalone.py             # Standalone testing
-│   ├── 🧪 test_token_fix.py              # Token fix testing
-│   ├── 🧪 check_docker.py                # Docker environment testing
-│   ├── 🧪 test_flask_startup.py          # Flask startup testing
-│   ├── 🧪 test_token.py                  # Token debugging
-│   ├── 📄 TESTS_DOCUMENTATION.md         # Tests documentation
-│   ├── 📄 TOKEN_MANAGEMENT_IMPROVEMENTS.md # Token management guide
-│   ├── 📄 CODY_CLIENT_TEST_SUMMARY.md    # Cody client test summary
-│   ├── 📄 ZOHO_CLIENT_TEST_SUMMARY.md    # Zoho client test summary
-│   ├── 📄 CONTAINER_DEBUG_SCRIPTS.md     # Debug scripts documentation
-│   ├── 📄 IMPORT_PATH_FIXES.md           # Import path fixes
-│   ├── 📄 IMPORT_PATH_UPDATES.md         # Import path documentation
-│   ├── 📄 TEST_FILES_MOVED_SUMMARY.md    # Test organization summary
-│   └── 📄 README.md                      # Tests folder documentation
-│
-├── 📁 docs/                         # Project documentation
-│   ├── 📄 README.md                 # Documentation index
-│   ├── 📄 DEBUG_SUMMARY.md          # Azure deployment debug summary
-│   ├── 📄 LOCAL_DEBUG_SUMMARY.md    # Local development debug summary
-│   ├── 📄 FINAL_TEST_RESULTS.md     # Final test results
-│   ├── 📄 TEST_RESULTS.md           # Comprehensive test results
-│   ├── 📄 AZURE_DEPLOYMENT_TEST_RESULTS.md  # Azure deployment results
-│   ├── 📄 ZOHO_DUPLICATE_CHECKING.md      # Duplicate checking guide
-│   ├── 📄 APPLICATION_INSIGHTS_INTEGRATION.md # Application Insights guide
-│   └── 📄 BUSINESS_RULES_ANALYSIS.md      # Business rules analysis
-│
 ├── 📁 scripts/                      # Utility scripts
 │   ├── 🚀 run_local.py              # Local development runner
 │   ├── 🚀 run_local.sh              # Unix/Linux/macOS local runner
@@ -233,15 +176,9 @@ Cody2Zoho/
 │   ├── 📄 FINDING_APPLICATION_INSIGHTS_DATA.md # AI data location guide
 │   └── 📄 README.md                      # Azure folder documentation
 │
-├── 📁 backup/                       # Backup files for recovery
-│   ├── 📄 BACKUP_INFO.md            # Backup information
-│   ├── 📁 src/                      # Backup of source files
-│   └── 📁 tests/                    # Backup of test files
-│
 ├── 🐳 docker-compose.yml            # Main application Docker configuration
 ├── 🐳 docker-compose.with-graylog.yml # Docker Compose with Graylog integration
 ├── 🐳 Dockerfile                    # Multi-stage application container
-├── 🐳 containerapp.yaml             # Azure Container App configuration
 ├── 📄 requirements.txt              # Python dependencies
 ├── 📄 env.template                  # Environment configuration template
 ├── 📄 env-vars.yaml                 # Azure Container App environment variables
@@ -265,19 +202,10 @@ Cody2Zoho/
 - **`src/transcript.py`**: Conversation transcript formatting and metadata extraction
 - **`src/app_insights_handler.py`**: Azure Application Insights telemetry and monitoring
 
-#### **Testing and Debugging**
-- **`tests/test_zoho_oauth_enhanced.py`**: Comprehensive OAuth testing with interactive flow
-- **`tests/generate_new_tokens.py`**: Enhanced token generation with proper path handling
-
-- **`tests/debug_main.py`**: Main function execution testing with timeout protection
-
 #### **Infrastructure**
 - **`docker-compose.yml`**: Production Docker Compose configuration
 - **`docker-compose.with-graylog.yml`**: Docker Compose with Graylog integration
 - **`Dockerfile`**: Multi-stage container build with optimization
-- **`containerapp.yaml`**: Azure Container App configuration
-- **`env-vars.yaml`**: Azure Container App environment variables
-- **`azure-deployment-info.json`**: Azure deployment information
 - **`redis/docker-compose.dev.yml`**: Local Redis development setup
 - **`azure/deploy_simple.ps1`**: Azure Container Apps deployment script
 - **`azure/deploy_azure_monitoring.ps1`**: Azure monitoring deployment
@@ -285,11 +213,6 @@ Cody2Zoho/
 - **`azure/setup_app_insights_alerts.ps1`**: Application Insights alerts configuration
 
 #### **Documentation**
-- **`docs/README.md`**: Comprehensive documentation index
-- **`docs/DEBUG_SUMMARY.md`**: Azure deployment troubleshooting guide
-- **`docs/LOCAL_DEBUG_SUMMARY.md`**: Local development troubleshooting guide
-- **`docs/ZOHO_DUPLICATE_CHECKING.md`**: Duplicate checking implementation guide
-- **`docs/APPLICATION_INSIGHTS_INTEGRATION.md`**: Application Insights integration guide
 - **`BUSINESS_RULES_ANALYSIS.md`**: Comprehensive business rules analysis
 - **`FILES.md`**: Complete file inventory and descriptions
 
